@@ -25,7 +25,7 @@ Glyph=glyph_rectangle([1.8,0.5],'k','c');
 Glyph = translate(Glyph, [1, 2]);
 All= append(All,Glyph);
 
-Glyph=glyph_cartesian_axes([-1, +1],[-1, +1],'k','x','v');
+Glyph=glyph_cartesian_axes([-1, +1],[-1, +1],'k',0.2);
 % Glyph = translate(Glyph, [1, 2]);
 % g=Glyph.group;
 % for i=1:length(g)

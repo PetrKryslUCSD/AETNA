@@ -5,7 +5,7 @@ function printeps(Fig,name, varargin)
     if (isempty(strfind(name, '.eps')))
         name =[name   '.eps'];
     end
-    %     savefig(name, Fig,'eps')
+    %     savefig(name, Fig,'pdf')
     %     print( Fig,['-r' num2str(resolution)],'-depsc2', name)
-    exportfig( Fig,name, 'width',6,'Color', 'rgb', 'fontmode','fixed', 'fontsize',18,varargin{:});
+    exportfig( Fig,name, 'Color', 'rgb', 'fontmode','fixed', 'fontsize',14,varargin{:});
 end

@@ -1,4 +1,6 @@
 % Evaluate the mass matrix of the structure
+% XY34 = array of two rows, one for joint 3 and one for joint 4: their
+%      coordinates in the X and Y direction
 function M =tcant_mass(XY34)
     [XY,en,A,E,rho,W,Widx,addM,addMidx,...
         neqf,maxtipd,Lowestfreq] =tcant_data;

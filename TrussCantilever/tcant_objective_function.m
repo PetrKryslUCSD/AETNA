@@ -1,8 +1,12 @@
 % The objective function for the cantilever truss.
 % 
+% XY34 = array of two rows, one for joint 3 and one for joint 4: their
+%      coordinates in the X and Y direction
+%
 % Comment out or uncomment the two lines indicated at the bottom.
 % This will change whether the optimization is for frequency or for static
 % deflection.
+
 function f =tcant_objective_function(XY34)
     [XY,en,minA,E,rho,W,Widx,addM,addMidx,...
         neqf,maxtipd,Lowestfreq] =tcant_data;

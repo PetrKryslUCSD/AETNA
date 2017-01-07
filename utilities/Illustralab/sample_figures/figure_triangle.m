@@ -4,7 +4,7 @@ B = [1, 0];
 C = [0, 1];
 
 Frame=GPath_polygon([-.25,-.25;1.3, 1.3]);
-Frame.Edgecolor ='w';
+Frame.Edgecolor ='y';
  Frame.Color = [];
 Frame.Linestyle ='none';
 Frame.Linewidth =1;

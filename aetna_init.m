@@ -14,14 +14,16 @@ end
 set_graphics_defaults
 
 disp(' ');
-    disp(['  An engineer''s toolkit of numerical algorithms']);
-    disp(['        AETNA 3.0 (C)  9/13/2013, Petr Krysl.']);
+disp(['  An engineer''s toolkit of numerical algorithms']);
+
+disp(['        AETNA 4.0 (C) 12/13/2016, Petr Krysl.']);
+% disp(['        AETNA 3.0 (C)  9/13/2013, Petr Krysl.']);
 %     disp(['        AETNA 2.0 (C)  7/13/2011, Petr Krysl.']);
-    %     disp(['        AETNA 1.1 (C)  10/13/2009, Petr Krysl.']); 
-    disp('  Please report problems and/or bugs to: pkrysl@ucsd.edu');
-    disp(' ');
-    disp('  Help is available: use the command "<a href="matlab:doc AETNA">doc AETNA</a>"');
-    disp('  ')
+%     disp(['        AETNA 1.1 (C)  10/13/2009, Petr Krysl.']);
+disp('  Please report problems and/or bugs to: pkrysl@ucsd.edu');
+disp(' ');
+disp('  Help is available: use the command "<a href="matlab:doc AETNA">doc AETNA</a>"');
+disp('  ')
 
 % Illustralab initialization
 % addpath (['C:\Documents and Settings\pkrysl\My Documents\Matlab_folder\Illustralab'], sep);

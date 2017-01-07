@@ -1,8 +1,4 @@
 function p = render(p)
-    color = [];
-    if ~isempty(p.GPath.color)
-        color =p.GPath.color;
-    end
     if strcmp(p.interpreter,'latex')
         h=text(p.xy(:,1),p.xy(:,2),['$$' p.text '$$'],...
             'horizontalalignment',p.horizontalalignment,...
@@ -12,6 +8,9 @@ function p = render(p)
         h=text(p.xy(:,1),p.xy(:,2),[p.text],...
             'horizontalalignment',p.horizontalalignment,...
             'verticalalignment',p.verticalalignment);
+    end
+    if ~isempty(p.GPath.color)
+       set(h,'color',p.GPath.color);
     end
     if ~isempty(p.backgroundcolor)
        set(h,'backgroundcolor',p.backgroundcolor);

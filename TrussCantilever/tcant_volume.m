@@ -1,4 +1,6 @@
 % Evaluates the volume of the structure
+% XY34 = array of two rows, one for joint 3 and one for joint 4: their
+%      coordinates in the X and Y direction
 function V =tcant_volume(XY34)
     [XY,en,A,E,rho,W,Widx,addM,addMidx,...
         neqf,maxtipd,Lowestfreq] =tcant_data;

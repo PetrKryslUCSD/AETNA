@@ -6,7 +6,7 @@ function fig2eps (name,varargin)
     if (~exist ('name','var'))
         name =tempname;
     end
-    set(get(gca,'Title'),'fontsize',24)
+    set(get(gca,'Title'),'fontsize',14)
     figure(gcf);
     [pathstr, name, ext] = fileparts(name) ;
     printeps(gcf,[ name '.eps'],varargin{:});

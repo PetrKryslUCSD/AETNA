@@ -1,17 +1,19 @@
 % UTILITIES
 % 
-% Illustralab - toolkit for drawing figures.
-% mp - class for multi-precision arithmetic
-% data_colormap - class for mapping data to colors
-%
-% Files
-% 
-%   one_sided_DFT      - Compute the one-sided Discrete Fourier transform using FFT.
-%   permmat            - Create a permutation matrix.
-%   projn              - Normal projection of vector v into the direction of the unit vector n.
-%   projo              - The remaining part of the normal projection.
-%   range              - Compute the range from the array a as [min(a),max(a)]
-%   skewmat            - Compute a skew matrix from its axial vector Theta.
-%   Slow_one_sided_DFT - An extremely inefficient DFT.
+% Illustralab - toolkit for drawing 2D figures.
+% ODE_suite - a suite of ODE solvers (Euler, trapezoidal, RK, ...)
+% @MaDS - class for processing of mass-damper-spring models
+% @SimPl - class for simple plots of mass-damper-spring models
+% @data_colormap - class for mapping data to colors
+% dataaccess - functions for easy access to data
+% helpers - functions  to make our lives easier
+% math - math-related simple functions
+% visualization - some graphics utilities
+
+
+
+
+
+
 
 

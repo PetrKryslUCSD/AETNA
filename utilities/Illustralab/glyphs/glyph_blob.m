@@ -1,4 +1,4 @@
-function g= glyph_pointing_hand(scale)
+function g= glyph_blob(scale)
 
     x=[ 0.0502    0.2442
         0.0525    0.3189
