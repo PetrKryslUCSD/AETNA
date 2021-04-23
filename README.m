@@ -6,6 +6,16 @@
 %   solutions of equilibrium  based on total potential energy, optimization
 %   and so on.
 % 
-% 
+% How to use
+% ----------
+% Start Matlab, change into the AETNA folder, and run 
+%
+%      aetna_init
+%
+% The function aetna_init adds all necessary folders from the AETNA toolkit
+% to the Matlab path.
+%
+% On Windows systems AETNA may be fired up by double-clicking the start.bat
+% file.
 
       
