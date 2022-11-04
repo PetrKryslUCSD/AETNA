@@ -16,7 +16,9 @@ set_graphics_defaults
 disp(' ');
 disp(['  An engineer''s toolkit of numerical algorithms']);
 
-disp(['        AETNA 5.0 (C) 02/13/2019, Petr Krysl.']);
+disp(['        AETNA 7.0 (C) 11/03/2022, Petr Krysl.']);
+% disp(['        AETNA 6.0 (C) 05/13/2020, Petr Krysl.']);
+% disp(['        AETNA 5.0 (C) 02/13/2019, Petr Krysl.']);
 % disp(['        AETNA 4.1 (C) 12/13/2017, Petr Krysl.']);
 % disp(['        AETNA 4.0 (C) 12/13/2016, Petr Krysl.']);
 % disp(['        AETNA 3.0 (C)  9/13/2013, Petr Krysl.']);
@@ -41,6 +43,7 @@ for i=1:length(dl)
                 (~strcmp(dl(i).name,'..')) & ...
                 (~strcmp(dl(i).name,'CVS')) & ...
                 (~strcmp(dl(i).name,'cvs')) & ...
+                (~strcmp(dl(i).name,'profile')) & ...
                 (~strcmp(dl(i).name(1),'@'))
             addpath([d sep dl(i).name])
             add_subdirs_to_path([d sep dl(i).name], sep);
