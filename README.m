@@ -1,5 +1,5 @@
 % An engineer''s toolkit of numerical algorithms
-%    AETNA 4.0 (C) 12/13/2016, Petr Krysl.
+%    AETNA 7.0 (C) 2016-2022, Petr Krysl.
 % 
 %   This is the Matlab toolbox that accompanies the textbook for numerical
 %   methods applied to topics in structural engineering: vibrations,
