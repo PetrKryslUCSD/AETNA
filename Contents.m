@@ -27,6 +27,7 @@
 % <a href="matlab: doc 'AETNA/investigations/Stokes/Contents.m'">Stokes</a> - Stokes problem solutions
 % <a href="matlab: doc 'AETNA/investigations/ThreeCarriages/Contents.m'">ThreeCarriages</a> - Three-Carriages mechanical system examples
 % <a href="matlab: doc 'AETNA/investigations/TrussCantilever/Contents.m'">TrussCantilever</a> - Truss Cantilever optimization example
+% <a href="matlab: doc 'AETNA/investigations/TrussOptimization/Contents.m'">TrussOptimization</a> - Truss Structure optimization
 % <a href="matlab: doc 'AETNA/tutorials/Contents.m'">tutorials</a> - Various tutorials
 % <a href="matlab: doc 'AETNA/src/Contents.m'">src</a> - Various classes, toolkits, and utility functions
  
