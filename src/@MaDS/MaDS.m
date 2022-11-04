@@ -1,5 +1,6 @@
 classdef MaDS
     % MaDS: Mass-Damper-Spring Linear Model Solver
+    % Copyright 2017-2022 Petr Krysl
     %
     % Example of use: see the MaDS.demo() method
     %
@@ -9,7 +10,7 @@ classdef MaDS
     %       or
     %            K = MaDS.stiffness(X,k,kconn,dof)
     
-    properties (Static, Access = public) % Demos
+    properties (Constant, Access = public) % Demos
         HintColor = 0.8*[1, 1, 1];   
         SpringWidth = 3.0;
         SpringColor = 0.7*[1, 0, 0];   
@@ -19,9 +20,9 @@ classdef MaDS
         NumberColor = 0.0*[1, 1, 1];
     end
     
-    properties (Static, Access = public) % Demos
-        FIXX = 1;   
-        FIXY = 2;
+    properties (Constant, Access = public) % Demos
+        FIX_X = 1;   
+        FIX_Y = 2;
     end
     
     methods (Static, Access = public) % Demo
@@ -31,7 +32,8 @@ classdef MaDS
             %
             % MaDS.demo()
             %
-            % This is the problem of three carriages that is solved in the textbook.
+            % This is the problem of three carriages that is solved in the
+            % textbook.
             m =  1.3;  k = 61;   c  = 0; % Mass, stiffness, damping parameters
             X = [0, -0.5; 0, 0; 0, 0.5; 0, 1.0];% Locations of joints
             kconn = [1, 2; 2, 3; 3, 4];% Which joints are connected by springs
@@ -50,8 +52,8 @@ classdef MaDS
             K = MaDS.stiffness(X, k, kconn, dof);
             % Construct the mass matrix
             M = MaDS.mass(X, m, dof);
-            % Solve the generalized eigenvalue problem for the mode shapes (V) and
-            % natural frequencies (diagonal of D)
+            % Solve the generalized eigenvalue problem for the mode shapes
+            % (V) and natural frequencies (diagonal of D)
             [V, D] = eig(K(1:nfreedof, 1:nfreedof), M(1:nfreedof, 1:nfreedof));
             disp( [ 'Frequencies =', num2str(sqrt(diag(D)')/2/pi) ])
             
@@ -77,9 +79,9 @@ classdef MaDS
                 end
                 xscale = sin(omega*t);
                 SimPl.draw_extents(xrange, yrange);
-                SimPl.draw_joints(X, 3*SimPl.JointRadius, 0.7*[1, 1, 1]);
-                SimPl.draw_springs(X+xscale*scale*dX, kconn, SimPl.SpringWidth, SimPl.SpringColor, true)
-                SimPl.draw_joints(X+xscale*scale*dX, 3*SimPl.JointRadius, 0.7*[1, 0, 0]);
+                SimPl.draw_joints(X, 3*MaDS.JointRadius, 0.7*[1, 1, 1]);
+                SimPl.draw_springs(X+xscale*scale*dX, kconn, MaDS.SpringWidth, MaDS.SpringColor, true)
+                SimPl.draw_joints(X+xscale*scale*dX, 3*MaDS.JointRadius, 0.7*[1, 0, 0]);
                 axis equal; axis off
                 pause( 0.1 );
                 
@@ -96,18 +98,20 @@ classdef MaDS
             % MaDS.sanity_check(X, k, m, c, kconn, cconn, dof, nfreedof)
             %
             % X =  array of joint coordinates, one row per joint
-            % k =  array of spring stiffnesses,  one stiffness coefficient per spring
-            % m =  array of concentrated masses at joints,  one mass coefficient
-            %      per joint; if supplied as empty  (such as for statics), this
-            %      argument is not checked.
-            % c =  array of damper coefficients,  one stiffness coefficient per damper;
-            %      if supplied as empty  (such as for statics), this
-            %      argument is not checked.
-            % kconn =  which  joints are connected by the spring? array of two joint
-            %      numbers, one row per spring
-            % cconn =  which  joints are connected by the damper? array of two joint
-            %      numbers, one row per damper; if supplied as empty  (such as for
-            %      statics), this argument is not checked.
+            % k =  array of spring stiffnesses,  one stiffness coefficient
+            %      per spring
+            % m =  array of concentrated masses at joints, one mass
+            %      coefficient per joint; if supplied as empty (such as for
+            %      Constants), this argument is not checked.
+            % c =  array of damper coefficients,  one stiffness coefficient
+            %      per damper; if supplied as empty  (such as for Constants),
+            %      this argument is not checked.
+            % kconn =  which  joints are connected by the spring? array of
+            %      two joint numbers, one row per spring
+            % cconn =  which  joints are connected by the damper? array of
+            %      two joint numbers, one row per damper; if supplied as
+            %      empty  (such as for Constants), this argument is not
+            %      checked.
             % dof =  array of degree of freedom numbers, one row per joint
             % nfreedof = number of free degrees of freedom
             %
@@ -177,11 +181,15 @@ classdef MaDS
         function Lengths = lengths(X, kconn)
             % Compute the lengths of the springs.
             %
-            % MaDS.lengths(X, kconn)
+            % Ls = MaDS.lengths(X, kconn)
             %
             % X =  array of joint coordinates, one row per joint
-            % kconn =  which  joints are connected by the spring? array of two joint
-            %      numbers, one row per spring
+            % kconn =  which  joints are connected by the spring? array of
+            %      two joint numbers, one row per spring
+            %
+            % Returns
+            % Lengths = array of the lengths of the springs.
+
             Lengths = zeros(size(kconn, 1), 1);
             % Now  loop over all the springs
             for j = 1:size(kconn, 1)
@@ -199,6 +207,7 @@ classdef MaDS
             % dof =  array of degree of freedom numbers, one row per joint
             % nfreedof = number of free degrees of freedom
             %
+            % Returns
             % F =  force vector, in length equal to the dimension of the
             %      space times the number of joints.
             F  = zeros(prod(size(dof)),1);
@@ -217,13 +226,15 @@ classdef MaDS
             % K = MaDS.stiffness(X, k, kconn, dof)
             %
             % X =  array of joint coordinates, one row per joint
-            % k =  array of spring stiffnesses,  one stiffness coefficient per spring
-            % kconn =  which  joints are connected by the spring? array of two joint
-            %      numbers, one row per spring
+            % k =  array of spring stiffnesses,  one stiffness coefficient
+            %      per spring
+            % kconn =  which  joints are connected by the spring? array of
+            %      two joint numbers, one row per spring
             % dof =  array of degree of freedom numbers, one row per joint
             %
-            % K =  stiffness matrix, square matrix in size equal to the dimension of the
-            % space times the number of joints.
+            % Returns
+            % K =  stiffness matrix, square matrix in size equal to the
+            %      dimension of the space times the number of joints.
             
             % Allocate the stiffness matrix in size equal to the dimension of the
             % space times the number of joints.
@@ -253,13 +264,15 @@ classdef MaDS
             % C = MaDS.damping(X, c, cconn, dof)
             %
             % X =  array of joint coordinates, one row per joint
-            % c =  array of damper constants,  one damping coefficient per damper
-            % cconn =  which  joints are connected by the damper? array of two joint
-            %      numbers, one row per spring
+            % c =  array of damper constants,  one damping coefficient per
+            %      damper
+            % cconn =  which  joints are connected by the damper? array of
+            %      two joint numbers, one row per spring
             % dof =  array of degree of freedom numbers, one row per joint
             %
-            % C =  damping matrix, square matrix in size equal to the dimension of the
-            % space times the number of joints.
+            % Returns
+            % C =  damping matrix, square matrix in size equal to the
+            %      dimension of the space times the number of joints.
             
             
             % Allocate the stiffness matrix in size equal to the dimension of the
@@ -290,12 +303,13 @@ classdef MaDS
             % M = MaDS.mass(X, m, dof)
             %
             % X =  array of joint coordinates, one row per joint
-            % m =  array of concentrated masses at joints,  one mass coefficient
-            %      per joint
+            % m =  array of concentrated masses at joints,  one mass
+            %      coefficient per joint
             % dof =  array of degree of freedom numbers, one row per joint
             %
-            % M =  mass matrix, square matrix in size equal to the dimension of the
-            %      space times the number of joints.
+            % Returns
+            % M =  mass matrix, square matrix in size equal to the
+            %      dimension of the space times the number of joints.
             
             I = eye(2);
             % Allocate the stiffness matrix in size equal to the dimension of the
@@ -316,29 +330,30 @@ classdef MaDS
             % K = MaDS.initial_stress_stiffness(X, k, kconn, dof, u)
             %
             % X =  array of joint coordinates, one row per joint
-            % k =  array of spring stiffnesses,  one stiffness coefficient per spring
-            % kconn =  which  joints are connected by the spring? array of two joint
-            %      numbers, one row per spring
+            % k =  array of spring stiffnesses,  one stiffness coefficient
+            %      per spring
+            % kconn =  which  joints are connected by the spring? array of
+            %      two joint numbers, one row per spring
             % dof =  array of degree of freedom numbers, one row per joint
-            % u =  array of displacements of the joints connected by the spring, one row per joint
+            % u =  array of displacements of the joints connected by the
+            %      spring, one row per joint
             %
-            % K =  stiffness matrix, square matrix in size equal to the dimension of the
-            % space times the number of joints.
+            % Returns
+            % K =  stiffness matrix, square matrix in size equal to the
+            %      dimension of the space times the number of joints.
             
             % Allocate the stiffness matrix in size equal to the dimension of the
             % space times the number of joints.
             K = zeros(size(X, 1)*size(X, 2));
-            id = eye(2);
             % Now  loop over all the springs
             for j = 1:size(kconn, 1)
                 L = MaDS.len(X(kconn(j, :), :)); % the length of the spring
                 N = k(j)*MaDS.elong(X(kconn(j, :), :), u(kconn(j, :), :));% axial force
                 % Construct the transformation matrix from the projections of the
                 % spring onto the Cartesian axes
-                %                 ds = MaDS.delt(X(kconn(j, :), :))/L;
-                %                 e2 = [-ds(2); ds(1)]; % direction orthogonal to the spring
-                %                 subm = (N/L)*(e2*e2');
-                subm = (N/L) * id;
+                ds = MaDS.delt(X(kconn(j, :), :))/L;
+                e2 = [-ds(2); ds(1)]; % direction orthogonal to the spring
+                subm = (N/L)*(e2*e2');
                 % The initial-stress stiffness matrix  of a single spring.
                 K_egeo = [subm, -subm;
                     -subm, subm];
@@ -350,14 +365,15 @@ classdef MaDS
         end
         
         function u = scatter_vector(U, dof)
-            % Create an array of joint displacements from a displacement vector.
+            % Create array of joint displacements from displacement vector.
             %
             % u = MaDS.scatter_vector(U, dof)
             %
-            % U =  array of displacements, one value per row, a single column
+            % U =  array of displacements, one value per row, a single
+            %      column
             % dof =  array of degree of freedom numbers, one row per joint
             %
-            % Output:
+            % Returns
             % u =  displacement array, one row per joint
             
             % The displaced positions of the joints are represented by an
@@ -376,15 +392,16 @@ classdef MaDS
         end
         
         function U = gather_vector(u, dof)
-            % Create a displacement vector from an array of joint displacements.
+            % Create displacement vector from array of joint displacements.
             %
             % U = MaDS.gather_vector(u, dof)
             %
             % u =  displacement array, one row per joint
             % dof =  array of degree of freedom numbers, one row per joint
             %
-            % Output:
-            % U =  array of displacements, one value per row, a single column
+            % Returns
+            % U =  array of displacements, one value per row, a single
+            %      column
             
             % The displaced positions of the joints are represented by an
             % array of the same shape as X.
@@ -401,25 +418,25 @@ classdef MaDS
             u(freedofix) = U(dof(freedofix));
         end
         
-        function [dof, nfreedof] = dofs(nnodes, fixities)
-            % Create the array of the degrees of freedom
+        function [dof, nfreedof] = dofs(njoints, fixities)
+            % Create the array of the degrees of freedom.
             %
-            % [dof, nfreedof] = dofs(nnodes, fixities)
+            % [dof, nfreedof] = dofs(njoints, fixities)
             %
-            % nnodes = number of nodes, 
-            % fixities = two-column array, in the first column there is the node
-            %        number, in the second column the flags MaDS.FIXX
-            %        (fix X displacement), MaDS.FIXY(fix Y displacement),
-            %        or MaDS.FIXX+MaDS.FIXY (fix both X and Y displacements).
-            dof = zeros(nnodes, 2);
+            % njoints = number of joints, 
+            % fixities = two-column array, in the first column there is the
+            %      node number, in the second column the flags MaDS.FIX_X
+            %      (fix X displacement), MaDS.FIX_Y(fix Y displacement), or
+            %      MaDS.FIX_X+MaDS.FIX_Y (fix both X and Y displacements).
+            dof = zeros(njoints, 2);
             isfixed = dof;
             for J=1:size(fixities, 1)
                 node = fixities(J, 1);
                 fixity = fixities(J, 2);
-                if (fixity == MaDS.FIXX) || (fixity == MaDS.FIXX+MaDS.FIXY)
+                if (fixity == MaDS.FIX_X) || (fixity == MaDS.FIX_X+MaDS.FIX_Y)
                     isfixed(node, 1) = true;
                 end
-                if (fixity == MaDS.FIXY) || (fixity == MaDS.FIXX+MaDS.FIXY)
+                if (fixity == MaDS.FIX_Y) || (fixity == MaDS.FIX_X+MaDS.FIX_Y)
                     isfixed(node, 2) = true;
                 end
             end           
@@ -449,21 +466,31 @@ classdef MaDS
     
     methods (Static, Access = public) % Convenience postprocessing methods
         
-        function plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, NumberOffSet, TextSize)
+        function plot_structure(X, kconn, dof, nfreedof, AppliedF, ...
+                    ForceScaling, NumberOffSet, TextSize)
             % Plot the initial shape of the structure.
             %
-            % plot_structure(X, kconn, dof, nfreedof, AppliedF)
-            %
-            % Plot the initial shape of the structure, with labels of joints and
-            % springs. Also, supported joints are marked with bigger circles, and the
-            % forces are displayed as arrows.
+            % MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, NumberOffSet, TextSize)
+            % 
+            % Plot the initial shape of the structure, with labels of
+            % joints and springs. Also, supported joints are marked with
+            % bigger circles, and the forces are displayed as arrows.
             % 
             % X =  array of joint coordinates, one row per joint
-            % k =  array of spring stiffnesses,  one stiffness coefficient per spring
-            % kconn =  which  joints are connected by the spring? array of two joint
-            %      numbers, one row per spring
+            % k =  array of spring stiffnesses,  one stiffness coefficient
+            %      per spring
+            % kconn =  which  joints are connected by the spring? array of
+            %      two joint numbers, one row per spring
             % dof =  array of degree of freedom numbers, one row per joint
             % nfreedof = number of free degrees of freedom
+            % AppliedF = array of force components, one row per joint
+            % ForceScaling = scaling of the arrows representing forces
+            %
+            % Optional: 
+            % NumberOffSet = distance to offset that the numbers from the 
+            %   joint locations or the centres of the bars (default 0.0),
+            % TextSize = size of the text labels (default 14)
+            
             
             if (~exist('NumberOffSet','var'))
                 NumberOffSet = [0.0, 0.0];
@@ -491,18 +518,19 @@ classdef MaDS
         function plot_deformed_structure(X, kconn, dof, nfreedof, u, scale)
             % Plot the deformed structure.
             %
-            % plot_deformed_structure(X, kconn, dof, nfreedof, u, scale)
+            % MaDS.plot_deformed_structure(X, kconn, dof, nfreedof, u, scale)
             %
             % 
             % X =  array of joint coordinates, one row per joint
-            % k =  array of spring stiffnesses,  one stiffness coefficient per spring
-            % kconn =  which  joints are connected by the spring? array of two joint
-            %      numbers, one row per spring
+            % k =  array of spring stiffnesses,  one stiffness coefficient 
+            %      per spring
+            % kconn =  which  joints are connected by the spring? array 
+            %      of two joint numbers, one row per spring
             % dof =  array of degree of freedom numbers, one row per joint
             % nfreedof = number of free degrees of freedom
             % u =  displacement array, one row per joint
             % scale = multiplier for the magnitude of the displayed
-            % displacement field
+            %      displacement field
             
             % Which joints are supported (fixed)? Which are free?
             fixedJoints = unique([find(dof(:,1)>nfreedof); find(dof(:,2)>nfreedof)]);
@@ -524,36 +552,54 @@ classdef MaDS
     
     methods (Static, Access = public) % General geometry helpers
         
-        % Compute the components of the oriented vector from the first to the
-        % second joint on each spring
+        function  d = delt(x)
+        % Compute oriented vector from the first to the second joint
         %
         % d = MaDS.delt(x)
         %
-        % x =  array of coordinates of the joints connected by the spring, one row per joint
-        function  d = delt(x)
+        % Compute the components of the oriented vector from the first to the
+        % second joint on each spring.
+        %
+        % x =  array of coordinates of the joints connected by the spring, 
+        %      one row per joint
+        %
+        % Returns
+        % d = vector from the first (tail) to the second joint (head of the
+        %      arrow)
             d  = diff(x);
         end
         
-        % Compute the length of the spring  as the distance between the two joints the spring connects.
+        function  L = len(x)
+        % Compute spring length as the distance between the two joints.
         %
         % L = MaDS.len(x)
         %
-        % x =  array of coordinates of the joints connected by the spring, one row per joint
-        function  L = len(x)
+        % x =  array of coordinates of the joints connected by the spring, 
+        %      one row per joint
+        % 
+        % Compute the length of the spring  as the distance between the 
+        % two joints the spring connects.
+        %
+        % Returns
+        % L = length of the spring
             L = sqrt(sum(MaDS.delt(x).^2));
         end
         
+        function  dL = elong(x, u)
         % Compute the elongation of the spring.
         %
         % dL = MaDS.elong(x, u)
         %
-        % x =  array of coordinates of the joints connected by the spring, one row per joint
-        % u =  array of displacements of the joints connected by the spring, one row per joint
+        % x =  array of coordinates of the joints connected by the spring, 
+        %      one row per joint
+        % u =  array of displacements of the joints connected by the 
+        %      spring, one row per joint
         %
-        % The elongation is the change in length of the spring (positive
-        % for the spring getting longer), negative for tthe spring getting
-        % shorter) and it is caused by the displacements of the joints.
-        function  dL = elong(x, u)
+        % Returns
+        % dL = The elongation is the change in length of the spring 
+        %      (positive for the spring getting longer), negative for 
+        %      the spring getting shorter) and it is caused by the 
+        %      displacements of the joints.
             del = MaDS.delt(x);
             L = sqrt(sum(del.^2));
             dL = (del/L)*(u(2, :)-u(1, :))';
@@ -562,11 +608,16 @@ classdef MaDS
         
     end
     
-    methods (Static, Access = public) % Import and export from and to Abaqus
+    methods (Access = public) % Import and export from and to Abaqus
         
         function [X, kconn] = Abaqus_import(filename)
             % Import 2D truss mesh from the Abaqus .INP file.
-            
+            %
+            % [X, kconn] = Abaqus_import(filename)
+            %
+            % Import 2D truss mesh from the Abaqus .INP file. Only the geometry and
+            % connectivity is imported: an array of the locations of the joints, and
+            % the connectivity of the bars.
             [pathstr, name, ext] = fileparts(filename) ;
             if (isempty(pathstr)),pathstr  = '.'; end
             
@@ -691,8 +742,12 @@ classdef MaDS
         end
         
         function Abaqus_export(filename, X, kconn)
-            % Import 2D truss mesh from the Abaqus .INP file.
+            % Export 2D truss mesh to an Abaqus .INP file.
+            %
+            %             Abaqus_export(filename, X, kconn)
+            %
             
+            % %             Example of such a file:
             % *Heading
             % *Part, name=Part-1
             % *Node
@@ -760,7 +815,7 @@ classdef MaDS
             % ** STEP: Step-1
             % **
             % *Step, name=Step-1, nlgeom=NO, perturbation
-            % *Static
+            % *Constant
             % **
             % ** BOUNDARY CONDITIONS
             % **
@@ -829,7 +884,7 @@ classdef MaDS
             printf('*Elastic\n');
             printf('%g, %g\n', E, nu);
             printf('*Step, name=Step-1, nlgeom=NO, perturbation\n');
-            printf('*Static\n');
+            printf('*Constant\n');
             % **
             % ** BOUNDARY CONDITIONS
             % **
@@ -857,4 +912,3 @@ classdef MaDS
     end
     
 end
-
