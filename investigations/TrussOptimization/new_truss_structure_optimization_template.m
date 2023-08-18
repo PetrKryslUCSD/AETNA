@@ -1,4 +1,4 @@
-function truss_structure_optimization_template
+function new_truss_structure_optimization_template
 % Optimization of truss structure
 %
 % The places where input data needs to be supplied or where something
@@ -10,8 +10,6 @@ function truss_structure_optimization_template
 % For all the variables (such as the arrays below) one can find
 % reference in the MaDS file. Try to use the right mouse button on the word
 % MaDS, and select Help on "MaDS".
-    
-    
     
     % Design variables: initial values
     DV0 = [?];% MODIFY
@@ -26,37 +24,21 @@ function truss_structure_optimization_template
     % calculate it inside this function and return it as a struct. When we
     % are done, we can return here.
     
-    % MODIFY
-    % Define the objective function (OF) value as a relative quantity:
-    % calculate the INITIAL value.
-    results = structural_solver(DV0, X, kconn, dof, nfreedof, AppliedF, rho, E);
-    % Variable results now holds the initial value that we can use to
-    % define the OF
-    Initial? = results.?;
-    
-    % MODIFY
     % Now we define the function to calculate the current value of the OF.
-    % Then the current OF is the initial value of Y/current value of Y,
-    % where Y may be the mass of the structure, the compliance or some
-    % other quantity.
     function OF = objf(DV)
-        results = structural_solver(DV, X, kconn, dof, nfreedof, AppliedF, rho, E);
-        OF = results.? / Initial?;
+        results = structural_solver(DV0, DV);
+        OF = results.OF;
     end
     
-    % MODIFY
-    % Divide the values of the constraints. Use non-dimensional
+    % Calculate the values of the constraints. Use non-dimensional
     % numbers for the constraints for good scaling and accuracy.
     function [c, ceq] = nonlcon(DV)
         % In our situation we have no inequality constraints: leave this empty.
         ceq = [];
         % Evaluate the current solution and use the results to define the
         % inequality constraints.
-        results = structural_solver(DV, X, kconn, dof, nfreedof, AppliedF, rho, E);
-        % MODIFY
-        % The constraints should be negative when satisfied, and they should be
-        % defined  as non-dimensional numbers.
-        c = [?]; % MODIFY
+        results = structural_solver(DV0, DV);
+        c = results.c; 
     end
     
     % Run the optimizer
@@ -69,7 +51,7 @@ end
 % ==========================================================================
 % FUNCTIONS
 
-function results = structural_solver(Design_variables)
+function results = structural_solver(DV0, DV)
     % Solver of the truss-structure system.
     %
     % results = structural_solver(Design_variables)
