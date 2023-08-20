@@ -2,6 +2,10 @@ classdef MaDS
     % MaDS: Mass-Damper-Spring Linear Model Solver
     % Copyright 2017-2023 Petr Krysl
     %
+    % The system can be a representation of a truss structure: The bars
+    % can be understood as the springs, there may be added dampers, and the
+    % masses associated with the joints are the third component.
+    %
     % Example of use: see the MaDS.demo() method
     %
     % Note: All methods need to be called by referencing the class MaDS,
@@ -33,7 +37,7 @@ classdef MaDS
             % MaDS.demo()
             %
             % This is the problem of three carriages that is solved in the
-            % textbook.
+            % AETNA textbook.
             m =  1.3;  k = 61;   c  = 0; % Mass, stiffness, damping parameters
             X = [0, -0.5; 0, 0; 0, 0.5; 0, 1.0];% Locations of joints
             kconn = [1, 2; 2, 3; 3, 4];% Which joints are connected by springs
@@ -84,7 +88,6 @@ classdef MaDS
                 SimPl.draw_joints(X+xscale*scale*dX, 3*MaDS.JointRadius, 0.7*[1, 0, 0]);
                 axis equal; axis off
                 pause( 0.1 );
-                
             end
         end
         
@@ -93,7 +96,8 @@ classdef MaDS
     methods (Static, Access = public) % Modeling methods
         
         function sanity_check(X, k, m, c, kconn, cconn, dof, nfreedof)
-            % Sanity checks for a system of springs connecting joints.
+            % Sanity checks for a system of springs and dampers connecting
+            % joints with given masses. 
             %
             % MaDS.sanity_check(X, k, m, c, kconn, cconn, dof, nfreedof)
             %
@@ -179,7 +183,7 @@ classdef MaDS
         end
         
         function Lengths = lengths(X, kconn)
-            % Compute the lengths of the springs.
+            % Compute the lengths of the springs (bars).
             %
             % Ls = MaDS.lengths(X, kconn)
             %
