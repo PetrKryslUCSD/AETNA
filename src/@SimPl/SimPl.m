@@ -150,7 +150,7 @@ classdef SimPl
             hold on
         end
         
-        function draw_springs(x,kconn,SpringWidth,Color,FancyRendering)
+        function draw_springs(x, kconn, SpringWidth, Color, FancyRendering)
             % Draw the springs in a spring-damper-mass system.
             %
             % draw_springs(x,kconn,SpringWidth,Color,FancyRendering)
@@ -172,23 +172,23 @@ classdef SimPl
             if (~exist('FancyRendering','var'))
                 FancyRendering= false;
             end
-            %
-            %             axes(ax); hold on;
-            %
+            if (~exist('SpringWidth','var'))
+                SpringWidth = 1;
+            end
+            if length(SpringWidth) < size(kconn,1)
+                 SpringWidth = repelem(SpringWidth, size(kconn,1));
+            end
             if (~FancyRendering)
-                if (SpringWidth<=0)
-                    SpringWidth=1;
-                end
                 for  j =1:size(kconn,1)
                     c=kconn(j,:);
                     L=sqrt(sum(diff(x(c,:))));
-                    line('XData',x(c,1),'YData',x(c,2),'color',Color, 'linewidth',SpringWidth);
+                    line('XData',x(c,1),'YData',x(c,2),'color',Color, 'linewidth',SpringWidth(j));
                 end
             else
                 for  j =1:size(kconn,1)
                     c=kconn(j,:);
                     L=sqrt(sum(diff(x(c,:))));
-                    Glyph =glyph_spring(x(c(1),:),x(c(2),:),SpringWidth);
+                    Glyph =glyph_spring(x(c(1),:),x(c(2),:),SpringWidth(j));
                     Glyph.edgecolor=Color;
                     render(Glyph);
                 end
