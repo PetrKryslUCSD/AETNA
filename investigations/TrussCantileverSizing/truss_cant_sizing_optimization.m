@@ -38,10 +38,12 @@ function truss_cant_sizing_optimization
     options = optimoptions('fmincon','Display','iter');
     DV = fmincon(@objf, DV0, [], [], [], [], lb, ub, @nonlcon, options)
     results = structural_solver(DV0, DV);
-    results.tipd
-    results.frequency
-    results0.tipd
-    results0.frequency
+    disp(['Current: ' 'Mass=' num2str(results.current_mass)])
+    disp(['Current: ' 'Displacements=' num2str(results.tipd')])
+    disp(['Current: ' 'Frequency=' num2str(results.frequency)])
+    disp(['Initial: ' 'Mass=' num2str(results0.current_mass)])
+    disp(['Initial: ' 'Displacements=' num2str(results0.tipd')])
+    disp(['Initial: ' 'Frequency=' num2str(results0.frequency)])
     tcant_draw(DV)
 end
 
