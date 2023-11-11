@@ -18,6 +18,7 @@ classdef MaDS
         HintColor = 0.8*[1, 1, 1];   
         SpringWidth = 3.0;
         SpringColor = 0.7*[1, 0, 0];   
+        DeformedSpringColor = 0.7*[1, 0, 1];   
         JointRadius = 4.0;
         JointColor = 0.1*[1, 1, 1];
         ForceColor = 0.7*[0, 0, 1];   
