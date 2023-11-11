@@ -548,6 +548,22 @@ classdef MaDS
             % scale = multiplier for the magnitude of the displayed
             %      displacement field
             
+            if (~exist('SpringColor','var'))
+                SpringColor = MaDS.DeformedSpringColor;
+            end
+            
+            if (~exist('NumberOffSet','var'))
+                NumberOffSet = [0.0, 0.0];
+            end
+            
+            if (~exist('TextSize','var'))
+                TextSize = 14;
+            end
+            
+            if (~exist('SpringWidth','var'))
+                SpringWidth = zeros(size(kconn, 1), 1) + MaDS.SpringWidth;
+            end
+            
             % Which joints are supported (fixed)? Which are free?
             fixedJoints = unique([find(dof(:,1)>nfreedof); find(dof(:,2)>nfreedof)]);
             freeJoints = setdiff(1:size(X, 1), fixedJoints);
@@ -555,10 +571,7 @@ classdef MaDS
             axis equal; hold on
             
             Xdeformed = X + scale*u;
-            SimPl.draw_springs(X, kconn, MaDS.SpringWidth, MaDS.HintColor)
-            SimPl.draw_joints(X(freeJoints, :), MaDS.JointRadius, MaDS.HintColor);
-            SimPl.draw_joints(X(fixedJoints, :), 2*MaDS.JointRadius, MaDS.HintColor);
-            SimPl.draw_springs(Xdeformed, kconn, MaDS.SpringWidth, MaDS.SpringColor)
+            SimPl.draw_springs(Xdeformed, kconn, SpringWidth, SpringColor)
             SimPl.draw_joints(Xdeformed(freeJoints, :), MaDS.JointRadius, MaDS.JointColor);
             SimPl.draw_joints(Xdeformed(fixedJoints, :), 2*MaDS.JointRadius, MaDS.JointColor);
             labels x y
