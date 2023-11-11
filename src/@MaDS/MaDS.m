@@ -513,7 +513,7 @@ classdef MaDS
             end
             
             if (~exist('SpringWidth','var'))
-                SpringWidth = MaDS.SpringWidth(MaDS.SpringWidth, size(kconn, 1));
+                SpringWidth = zeros(size(kconn, 1), 1) + MaDS.SpringWidth;
             end
             
             % Which joints are supported (fixed)? Which are free?
@@ -522,7 +522,7 @@ classdef MaDS
             
             axis equal; hold on
             
-            SimPl.draw_springs(X, kconn, SpringWidth, MaDS.SpringColor)
+            SimPl.draw_springs(X, kconn, SpringWidth, SpringColor)
             SimPl.draw_joints(X(freeJoints, :), MaDS.JointRadius, MaDS.JointColor);
             SimPl.draw_joint_numbers(X, MaDS.NumberColor, TextSize, NumberOffSet)
             SimPl.draw_joints(X(fixedJoints, :), 2*MaDS.JointRadius, MaDS.JointColor);
@@ -531,10 +531,10 @@ classdef MaDS
             labels x y
         end
         
-        function plot_deformed_structure(X, kconn, dof, nfreedof, u, scale)
+        function plot_deformed_structure(X, kconn, dof, nfreedof, u, scale, SpringColor, SpringWidth)
             % Plot the deformed structure.
             %
-            % MaDS.plot_deformed_structure(X, kconn, dof, nfreedof, u, scale)
+            % MaDS.plot_deformed_structure(X, kconn, dof, nfreedof, u, scale, SpringColor, SpringWidth)
             %
             % 
             % X =  array of joint coordinates, one row per joint
