@@ -179,8 +179,6 @@ classdef MaDS
                 error('The number of free degrees of freedom must be between 1 and number of joints times 2')
             end
             
-            
-            
         end
         
         function Lengths = lengths(X, kconn)
@@ -637,7 +635,7 @@ classdef MaDS
         
     end
     
-    methods (Access = public) % Import and export from and to Abaqus
+    methods (Static, Access = public) % Import and export from and to Abaqus
         
         function [X, kconn] = Abaqus_import(filename)
             % Import 2D truss mesh from the Abaqus .INP file.
