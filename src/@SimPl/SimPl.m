@@ -180,17 +180,21 @@ classdef SimPl
             end
             if (~FancyRendering)
                 for  j =1:size(kconn,1)
-                    c=kconn(j,:);
-                    L=sqrt(sum(diff(x(c,:))));
-                    line('XData',x(c,1),'YData',x(c,2),'color',Color, 'linewidth',SpringWidth(j));
+                    if SpringWidth(j) > 0
+                        c=kconn(j,:);
+                        L=sqrt(sum(diff(x(c,:))));
+                        line('XData',x(c,1),'YData',x(c,2),'color',Color, 'linewidth',SpringWidth(j));
+                    end
                 end
             else
                 for  j =1:size(kconn,1)
-                    c=kconn(j,:);
-                    L=sqrt(sum(diff(x(c,:))));
-                    Glyph =glyph_spring(x(c(1),:),x(c(2),:),SpringWidth(j));
-                    Glyph.edgecolor=Color;
-                    render(Glyph);
+                    if SpringWidth(j) > 0
+                        c=kconn(j,:);
+                        L=sqrt(sum(diff(x(c,:))));
+                        Glyph =glyph_spring(x(c(1),:),x(c(2),:),SpringWidth(j));
+                        Glyph.edgecolor=Color;
+                        render(Glyph);
+                    end
                 end
             end
         end
