@@ -16,7 +16,8 @@ set_graphics_defaults
 disp(' ');
 disp(['  An engineer''s toolkit of numerical algorithms']);
 
-disp(['        AETNA 7.0 (C) 11/03/2022, Petr Krysl.']);
+disp(['        AETNA 7.1 (C) 11/10/2023, Petr Krysl.']);
+% disp(['        AETNA 7.0 (C) 11/03/2022, Petr Krysl.']);
 % disp(['        AETNA 6.0 (C) 05/13/2020, Petr Krysl.']);
 % disp(['        AETNA 5.0 (C) 02/13/2019, Petr Krysl.']);
 % disp(['        AETNA 4.1 (C) 12/13/2017, Petr Krysl.']);
