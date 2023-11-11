@@ -1,16 +1,13 @@
-% This tutorial shows how to set up an optimization problem to minimize the
-% mass of a truss structure, while satisfying constraints on a static
-% deflection and the minimum frequency of vibration.
-
-% For all the variables (such as the arrays below) one can find
-% reference in the MaDS file. Try to use the right mouse button on the word
-% MaDS, and select Help on "MaDS".
-
 function truss_contact
-    % Tutorial for the Mass-Damper-Spring (MadS) solver: Optimization of shape.
+    % Tutorial for the Mass-Damper-Spring (MadS) solver: Optimization
+    % solution of a contact problem.
+    %
+    % For all the variables (such as the arrays below) one can find
+    % reference in the MaDS file. Try to use the right mouse button on the word
+    % MaDS, and select Help on "MaDS".
     %
     % This is the main function. Simply run.
-    
+
     % Get the problem data.
     [X, kconn, dof, nfreedof, AppliedF, A, E, rho, maxdeflection, constrained_joint] = data();
     
