@@ -496,6 +496,14 @@ classdef MaDS
             % SpringWidth = array of line widths to be used to plot the
             %   springs, or just a single number
             
+            if (~exist('ForceScaling','var'))
+                ForceScaling = 1.0;
+            end
+            
+            if (~exist('SpringColor','var'))
+                SpringColor = MaDS.SpringColor;
+            end
+            
             if (~exist('NumberOffSet','var'))
                 NumberOffSet = [0.0, 0.0];
             end
