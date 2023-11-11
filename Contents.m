@@ -26,8 +26,10 @@
 % <a href="matlab: doc 'AETNA/investigations/Stickslip/Contents.m'">Stickslip</a> - Stick-slip simulation
 % <a href="matlab: doc 'AETNA/investigations/Stokes/Contents.m'">Stokes</a> - Stokes problem solutions
 % <a href="matlab: doc 'AETNA/investigations/ThreeCarriages/Contents.m'">ThreeCarriages</a> - Three-Carriages mechanical system examples
-% <a href="matlab: doc 'AETNA/investigations/TrussCantilever/Contents.m'">TrussCantilever</a> - Truss Cantilever optimization example
-% <a href="matlab: doc 'AETNA/investigations/TrussOptimization/Contents.m'">TrussOptimization</a> - Truss Structure optimization
+% <a href="matlab: doc 'AETNA/investigations/TrussCantileverSizing/Contents.m'">TrussCantileverSizing</a> - Truss sizing optimization example
+% <a href="matlab: doc 'AETNA/investigations/TrussCantileverShape/Contents.m'">TrussCantileverShape</a> - Truss shape optimization
+% <a href="matlab: doc 'AETNA/investigations/TrussContact/Contents.m'">TrussContact</a> - Truss contact problem solved via optimization
+% <a href="matlab: doc 'AETNA/investigations/TrussOptimizationTemplate/Contents.m'">TrussOptimizationTemplate</a> - Truss structure optimization template
 % <a href="matlab: doc 'AETNA/tutorials/Contents.m'">tutorials</a> - Various tutorials
 % <a href="matlab: doc 'AETNA/src/Contents.m'">src</a> - Various classes, toolkits, and utility functions
  
