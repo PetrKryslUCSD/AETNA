@@ -666,8 +666,8 @@ classdef MaDS
                 if (strcmpi(tokens{1},'*ELEMENT'))
                     if (length(tokens)>=2)
                         tok1 =  all_tokens(tokens{2}, '=');
-                        if (strcmpi(tok1{1},'TYPE'))
-                            if (strcmpi(tok1{2},'T2D2'))
+                        if (strcmpi(upper(tok1{1}),'TYPE'))
+                            if (strcmpi(upper(tok1{2}),'T3D2')) || (strcmpi(upper(tok1{2}),'T2D2'))
                                 Valid = true;
                             end
                         end
