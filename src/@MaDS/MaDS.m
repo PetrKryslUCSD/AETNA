@@ -470,10 +470,10 @@ classdef MaDS
     methods (Static, Access = public) % Convenience postprocessing methods
         
         function plot_structure(X, kconn, dof, nfreedof, AppliedF, ...
-                    ForceScaling, NumberOffSet, TextSize, SpringWidth)
+                    ForceScaling, SpringColor, NumberOffSet, TextSize, SpringWidth)
             % Plot the initial shape of the structure.
             %
-            % MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, NumberOffSet, TextSize, SpringWidth)
+            % MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, SpringColor, NumberOffSet, TextSize, SpringWidth)
             % 
             % Plot the initial shape of the structure, with labels of
             % joints and springs. Also, supported joints are marked with
