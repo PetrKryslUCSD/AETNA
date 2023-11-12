@@ -23,6 +23,8 @@ classdef MaDS
         JointColor = 0.1*[1, 1, 1];
         ForceColor = 0.7*[0, 0, 1];   
         NumberColor = 0.0*[1, 1, 1];
+        NumberOffset = [0.0, 0.0];
+        TextSize = 16;
     end
     
     properties (Constant, Access = public) % Demos
@@ -467,11 +469,10 @@ classdef MaDS
     
     methods (Static, Access = public) % Convenience postprocessing methods
         
-        function plot_structure(X, kconn, dof, nfreedof, AppliedF, ...
-                    ForceScaling, SpringColor, NumberOffSet, TextSize, SpringWidth)
+        function plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, SpringColor, NumberOffset, TextSize, SpringWidth)
             % Plot the initial shape of the structure.
             %
-            % MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, SpringColor, NumberOffSet, TextSize, SpringWidth)
+            % MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, SpringColor, NumberOffset, TextSize, SpringWidth)
             % 
             % Plot the initial shape of the structure, with labels of
             % joints and springs. Also, supported joints are marked with
@@ -488,7 +489,7 @@ classdef MaDS
             % ForceScaling = scaling of the arrows representing forces
             %
             % Optional: 
-            % NumberOffSet = distance to offset that the numbers from the 
+            % NumberOffset = distance to offset that the numbers from the 
             %   joint locations or the centres of the bars (default 0.0),
             % TextSize = size of the text labels (default 14)
             % SpringWidth = array of line widths to be used to plot the
@@ -502,8 +503,8 @@ classdef MaDS
                 SpringColor = MaDS.SpringColor;
             end
             
-            if (~exist('NumberOffSet','var'))
-                NumberOffSet = [0.0, 0.0];
+            if (~exist('NumberOffset','var'))
+                NumberOffset = [0.0, 0.0];
             end
             
             if (~exist('TextSize','var'))
@@ -522,10 +523,10 @@ classdef MaDS
             
             SimPl.draw_springs(X, kconn, SpringWidth, SpringColor)
             SimPl.draw_joints(X(freeJoints, :), MaDS.JointRadius, MaDS.JointColor);
-            SimPl.draw_joint_numbers(X, MaDS.NumberColor, TextSize, NumberOffSet)
+            SimPl.draw_joint_numbers(X, MaDS.NumberColor, TextSize, NumberOffset)
             SimPl.draw_joints(X(fixedJoints, :), 2*MaDS.JointRadius, MaDS.JointColor);
             SimPl.draw_forces(X, AppliedF, MaDS.ForceColor, ForceScaling);
-            SimPl.draw_spring_numbers(X, kconn, MaDS.NumberColor, TextSize, NumberOffSet);
+            SimPl.draw_spring_numbers(X, kconn, MaDS.NumberColor, TextSize, NumberOffset);
             labels x y
         end
         
@@ -550,8 +551,8 @@ classdef MaDS
                 SpringColor = MaDS.DeformedSpringColor;
             end
             
-            if (~exist('NumberOffSet','var'))
-                NumberOffSet = [0.0, 0.0];
+            if (~exist('NumberOffset','var'))
+                NumberOffset = [0.0, 0.0];
             end
             
             if (~exist('TextSize','var'))
