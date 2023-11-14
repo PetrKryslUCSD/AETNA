@@ -4,7 +4,9 @@ function truss_cant_sizing_optimization
 % For all the variables (such as the arrays below) one can find
 % reference in the MaDS file. Try to use the right mouse button on the word
 % MaDS, and select Help on "MaDS".
-     [X, kconn, dof, nfreedof, AppliedF, A, E, rho, addM, addMidx,...
+
+    % Retrieve the data that define the problem:
+    [X, kconn, dof, nfreedof, AppliedF, A, E, rho, addM, addMidx,...
         maxtipd, lowestfreq] = tcant_data;
 
     % Design variables: initial values
@@ -17,6 +19,7 @@ function truss_cant_sizing_optimization
     results0 = structural_solver(DV0, DV0);
     
     % Now we define the function to calculate the current value of the OF.
+    % The objective function is normalized.    
     function OF = objf(DV)
         results = structural_solver(DV0, DV);
         OF = results.current_mass / results0.current_mass;
@@ -170,8 +173,8 @@ function tcant_draw(DV)
     else
         SpringWidth = 1;
     end
-    ForceScaling = 0.0; NumberOffSet = [-200,200]; TextSize = 12;
-    MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, NumberOffSet, TextSize, SpringWidth)
+    ForceScaling = 0.0; NumberOffSet = [-200,200]; 
+    MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, MaDS.SpringColor, NumberOffSet, MaDS.TextSize, SpringWidth)
     
 %     fig2eps(['figure_tcant_sizing_optimization'  '.eps'])
 end

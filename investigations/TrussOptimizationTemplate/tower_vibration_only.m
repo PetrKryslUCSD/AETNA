@@ -169,7 +169,6 @@ function results = structural_solver(DV0, DV, graphics)
     %     If desired, use the block below to display the deformation of the
     % structure.
     if (graphics)
-        ForceScaling = 0.0001;
         SpringWidth = sqrt(DV) ./ max(DV) .* 0.5;
         scale = 1.0;
         mode = 1;

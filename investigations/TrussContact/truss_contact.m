@@ -121,7 +121,7 @@ function truss_contact
         u = MaDS.scatter_vector(DV, dof);
 
         ForceScaling = 0.2; NumberOffSet = 1000*[0.5, -0.35]; TextSize = 16;
-        MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, NumberOffSet, TextSize);
+        MaDS.plot_structure(X, kconn, dof, nfreedof, AppliedF, ForceScaling, MaDS.SpringColor, NumberOffSet, TextSize);
         scale = 50;         
         MaDS.plot_deformed_structure(X, kconn, dof, nfreedof, u, scale);
         fig2eps(['trust_contact_' num2str(maxdeflection)  '.eps'])
