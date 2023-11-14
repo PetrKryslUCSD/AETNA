@@ -30,6 +30,7 @@
 % <a href="matlab: doc 'AETNA/investigations/TrussCantileverShape/Contents.m'">TrussCantileverShape</a> - Truss shape optimization
 % <a href="matlab: doc 'AETNA/investigations/TrussContact/Contents.m'">TrussContact</a> - Truss contact problem solved via optimization
 % <a href="matlab: doc 'AETNA/investigations/TrussOptimizationTemplate/Contents.m'">TrussOptimizationTemplate</a> - Truss structure optimization template
+% <a href="matlab: doc 'AETNA/investigations/TrussOptimization/Contents.m'">TrussOptimization</a> - Truss structure optimization template: equivalent to TrussOptimizationTemplate
 % <a href="matlab: doc 'AETNA/tutorials/Contents.m'">tutorials</a> - Various tutorials
 % <a href="matlab: doc 'AETNA/src/Contents.m'">src</a> - Various classes, toolkits, and utility functions
  
