@@ -29,7 +29,7 @@ function scalarcomplexvis
     xlim=xlim+[-addlim,addlim];
     ylim=ylim+[-addlim,addlim];
     zlim=zlim+[-addlim,addlim];
-        set(gca,'xlim',xlim,'ylim',ylim,'zlim',zlim);
+    set(gca,'xlim',xlim,'ylim',ylim,'zlim',zlim);
     axis vis3d equal
     labels('$t$','$\mathrm{Re}\;y$','$\mathrm{Im}\;y$');
     
@@ -59,7 +59,11 @@ function scalarcomplexvis
         set(p,'XData',xs+ts);
         set(p,'YData',ys+xyz(1));
         set(p,'ZData',zs+xyz(2));
-        title(['$t$' '=' num2str(ts)],'interpreter','latex');;
+        title(['$t$' '=' num2str(ts)],'interpreter','latex');
+        xlim=[min(tspan),max(tspan)];
+        ylim=[min(sol(:,1)),max(sol(:,1))];
+        zlim=[min(sol(:,2)),max(sol(:,2))];
+        set(gca,'xlim',xlim,'ylim',ylim,'zlim',zlim);
         pause(0.1);
         for i=1:length(t)
             while t(i)>=ts+dt
@@ -77,6 +81,7 @@ function scalarcomplexvis
     end
     
     f = uimenu('Label','Animation');
+    uimenu(f,'Label','3D plot','Callback','view([-45 45]);');
     uimenu(f,'Label','Phase plot','Callback','view([90 0]);');
     uimenu(f,'Label','t vs. Im y','Callback','view([0 0]);');
     uimenu(f,'Label','t vs. Re y','Callback','view([0 90]);');
