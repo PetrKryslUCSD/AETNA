@@ -9,9 +9,9 @@ function froscill_crit_symb
     % so here we solve for the principal vector
     p2 = (A-D(2,2)*eye(2))\V(:,1);
     M = [V(:,1),p2];
-    J =simple(inv(M)*A*M);
+    J =simplify(inv(M)*A*M);
     eJt =expm(J*t);
-    y=simple(M*eJt*inv(M))*y0; 
+    y=simplify(M*eJt*inv(M))*y0; 
     x0= 0; v0=1;% [initial displacement; initial velocity]
     m= 13;    k=  6100; omega_n= sqrt(k/m);
     T_n=(2*pi)/omega_n;

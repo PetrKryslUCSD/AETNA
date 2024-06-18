@@ -6,9 +6,9 @@ function froscill_super_symb
     c=3/2*c_cr;
     A = [0, 1; -omega_n^2, -(c/m)];
     [V,D] =eig(A);
-    L =simple(inv(V)*A*V);
+    L =simplify(inv(V)*A*V);
     eLt =diag(exp(diag(L)*t));
-    y=simple(V*eLt*inv(V))*y0; 
+    y=simplify(V*eLt*inv(V))*y0; 
     x0= 0; v0=1;% [initial displacement; initial velocity]
     m= 13;    k=  6100; omega_n= sqrt(k/m);
     T_n=(2*pi)/omega_n;
