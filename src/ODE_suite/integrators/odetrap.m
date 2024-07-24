@@ -28,7 +28,7 @@
 %              default). The field MaxIter can be set to control the
 %              maximum iterations taken by the Newton solver.
 %
-% Copyright (C) 2007-2016, Petr Krysl
+% Copyright (C) 2007-2024, Petr Krysl
 % 
 function [ts, ys] = odetrap(rhsfun, tspan, y0, options, varargin)
     warning on
