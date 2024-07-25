@@ -39,6 +39,7 @@ function [ts, ys] = odetrap(rhsfun, tspan, y0, options, varargin)
     catch,      options.RelTol =1e-3;    end
     try,        options.MaxIter=options.(matchfieldname(options, 'MaxIter'));
     catch,      options.MaxIter =12;    end
+    if isempty(options.MaxIter); options.MaxIter = 15; end
     % check whether we are going forward or backward in time
     if (tspan(2)<tspan(1)),h=-abs(h);end
     nsteps = abs(ceil ((tspan(2) - tspan(1)) / h));
@@ -91,7 +92,7 @@ function [yn1] = Trap_Newton(rhsfun, h, tn, yn, options, varargin)
         end
         yn1 =nyn1;
     end
-    warning(['odetrap: Not converged with ' num2str(maximum_iteration) ' iterations; Max increment ' num2str(norm(max(max(abs(yn1increment)), options.threshold),inf))]);
+    warning(['odetrap: Not converged with ' num2str(maximum_iteration) ' iterations.']);
 end
 
 % This implementation of the trapezoidal step solves for yn1 using
