@@ -26,8 +26,8 @@ function new_truss_structure_optimization_template
     
     % Now we define the function to calculate the current value of the OF.
     function OF = objf(DV)
-        results = structural_solver(DV0, DV);
-        OF = results.OF;
+        DR = structural_solver(DV0, DV);
+        OF = DR.OF;
     end
     
     % Calculate the values of the constraints. Use non-dimensional
@@ -37,8 +37,8 @@ function new_truss_structure_optimization_template
         ceq = [];
         % Evaluate the current solution and use the results to define the
         % inequality constraints.
-        results = structural_solver(DV0, DV);
-        c = results.c; 
+        DR = structural_solver(DV0, DV);
+        c = DR.c; 
     end
     
     % Run the optimizer
@@ -51,14 +51,14 @@ end
 % ==========================================================================
 % FUNCTIONS
 
-function results = structural_solver(DV0, DV)
+function DR = structural_solver(DV0, DV)
     % Solver of the truss-structure system.
     %
-    % results = structural_solver(Design_variables)
+    % DR = structural_solver(DV0, DV)
     %
     % Returns
-    % results = structure with objective function value and the values of
-    %   the constraints
+    % DR = design response: structure with objective function value and the
+    %   values of the constraints
 
     % MODIFY in some places below
 
@@ -138,8 +138,8 @@ function results = structural_solver(DV0, DV)
         N(i) = k(i)*MaDS.elong(X(kconn(i, :), :), u(kconn(i, :), :));
     end
     
-    results.current_mass = CurrentMass;
+    DR.current_mass = CurrentMass;
     % OPTIONAL: Is there anything else you would like to return?
-    %     results.axial_forces = N;
+    %     DR.axial_forces = N;
     
 end % structural_solver
