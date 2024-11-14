@@ -7,7 +7,7 @@ classdef SimPl
     %       as for instance
     %            SimPl.demo()
     %
-    % (C) 2016-2019, Petr Krysl
+    % (C) 2016-2024, Petr Krysl
     
     methods (Static, Access = public) % Demos
         
@@ -130,18 +130,18 @@ classdef SimPl
             %         pause( 0.001 );
             %     end
             
-            %             axes(ax); hold on
+            %     axes(ax); hold on
             %     set('Units','centimeter');
             axis equal
             
-            Frame =GPath_group();
-            Frame.group ={};
-            Glyph= glyph_circle(1/1000,'w','w');
-            Glyph =translate(Glyph,[min(xrange),min(yrange)]);
-            Frame= append(Frame,Glyph);
-            Glyph= glyph_circle(1/1000,'w','w');
-            Glyph =translate(Glyph,[max(xrange),max(yrange)]);
-            Frame= append(Frame,Glyph);
+            Frame = GPath_group();
+            Frame.group = {};
+            Glyph = glyph_circle(1/1000,'w','w');
+            Glyph = translate(Glyph,[min(xrange),min(yrange)]);
+            Frame = append(Frame,Glyph);
+            Glyph = glyph_circle(1/1000,'w','w');
+            Glyph = translate(Glyph,[max(xrange),max(yrange)]);
+            Frame = append(Frame,Glyph);
             
             %             axes(ax);
             axis off

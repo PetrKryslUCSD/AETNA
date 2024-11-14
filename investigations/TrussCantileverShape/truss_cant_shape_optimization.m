@@ -16,13 +16,13 @@ function truss_cant_shape_optimization
     % upper bounds on the design variables
     ub = [];% MODIFY
 
-    results0 = structural_solver(DV0, DV0);
+    DR0 = structural_solver(DV0, DV0);
     
     % Now we define the function to calculate the current value of the OF.
     % The objective function is normalized.    
     function OF = objf(DV)
-        results = structural_solver(DV0, DV);
-        OF = results.current_mass / results0.current_mass;
+        DR = structural_solver(DV0, DV);
+        OF = DR.current_mass / DR0.current_mass;
     end
     
     % Calculate the values of the constraints. Use non-dimensional
@@ -32,21 +32,21 @@ function truss_cant_shape_optimization
         ceq = [];
         % Evaluate the current solution and use the results to define the
         % inequality constraints.
-        results = structural_solver(DV0, DV);
-        c = [-(maxtipd-abs(results.tipd'))/maxtipd, (lowestfreq-results.frequency) / lowestfreq]; 
+        DR = structural_solver(DV0, DV);
+        c = [-(maxtipd-abs(DR.tipd'))/maxtipd, (lowestfreq-DR.frequency) / lowestfreq]; 
     end
     
     % Run the optimizer
     format long
     options = optimoptions('fmincon','Display','iter');
     DV = fmincon(@objf, DV0, [], [], [], [], lb, ub, @nonlcon, options)
-    results = structural_solver(DV0, DV);
-    disp(['Current: ' 'Mass=' num2str(results.current_mass)])
-    disp(['Current: ' 'Displacements=' num2str(results.tipd')])
-    disp(['Current: ' 'Frequency=' num2str(results.frequency)])
-    disp(['Initial: ' 'Mass=' num2str(results0.current_mass)])
-    disp(['Initial: ' 'Displacements=' num2str(results0.tipd')])
-    disp(['Initial: ' 'Frequency=' num2str(results0.frequency)])
+    DR = structural_solver(DV0, DV);
+    disp(['Current: ' 'Mass=' num2str(DR.current_mass)])
+    disp(['Current: ' 'Displacements=' num2str(DR.tipd')])
+    disp(['Current: ' 'Frequency=' num2str(DR.frequency)])
+    disp(['Initial: ' 'Mass=' num2str(DR0.current_mass)])
+    disp(['Initial: ' 'Displacements=' num2str(DR0.tipd')])
+    disp(['Initial: ' 'Frequency=' num2str(DR0.frequency)])
     tcant_draw(DV)
 end
 
@@ -54,13 +54,13 @@ end
 % ==========================================================================
 % FUNCTIONS
 
-function results = structural_solver(DV0, DV)
+function DR = structural_solver(DV0, DV)
     % Solver of the truss-structure system.
     %
-    % results = structural_solver(Design_variables)
+    % DR = structural_solver(Design_variables)
     %
     % Returns
-    % results = structure with objective function value and the values of
+    % DR = design response: structure with objective function value and the values of
     %   the constraints
 
      [X, kconn, dof, nfreedof, AppliedF, A, E, rho, addM, addMidx,...
@@ -122,9 +122,9 @@ function results = structural_solver(DV0, DV)
     % makes the computation SLOW.
 %         tcant_draw(DV); pause(0.01)
 
-    results.current_mass = CurrentMass;
-    results.tipd = U(1:4);% Tip deflection
-    results.frequency = frequency;
+    DR.current_mass = CurrentMass;
+    DR.tipd = U(1:4);% Tip deflection
+    DR.frequency = frequency;
 end % structural_solver
 
 
